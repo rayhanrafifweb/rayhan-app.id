@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My App Launcher</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #60a5fa 100%);
+            min-height: 100vh;
+        }
+        .app-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(16px);
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .app-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+            background: rgba(255, 255, 255, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        .app-card:active {
+            transform: translateY(-8px) scale(0.98);
+        }
+        .header-glow {
+            text-shadow: 0 0 30px rgba(96, 165, 250, 0.8), 
+                         0 0 60px rgba(59, 130, 246, 0.6);
+            animation: pulse 3s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 1.5rem;
+        }
+        @media (min-width: 640px) {
+            .grid-container {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                gap: 2rem;
+            }
+        }
+        @media (min-width: 1024px) {
+            .grid-container {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            }
+        }
+        .emoji-icon {
+            font-size: 3rem;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+        .app-card:hover .emoji-icon {
+            transform: scale(1.2) rotate(5deg);
+        }
+        .background-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .shape {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+        }
+        .shape1 { width: 300px; height: 300px; top: -150px; right: -100px; animation: float1 20s infinite; }
+        .shape2 { width: 200px; height: 200px; bottom: -100px; left: -50px; animation: float2 15s infinite; }
+        .shape3 { width: 150px; height: 150px; top: 50%; right: 10%; animation: float3 18s infinite; }
+        @keyframes float1 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-50px, 50px) rotate(180deg); }
+        }
+        @keyframes float2 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(50px, -50px) rotate(-180deg); }
+        }
+        @keyframes float3 {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-30px, 30px); }
+        }
+    </style>
+</head>
+<body class="font-sans">
+    <!-- Background Shapes -->
+    <div class="background-shapes">
+        <div class="shape shape1"></div>
+        <div class="shape shape2"></div>
+        <div class="shape shape3"></div>
+    </div>
+
+    <div class="container mx-auto px-4 py-6 sm:py-10 relative z-10">
+        <!-- Header -->
+        <div class="text-center mb-8 sm:mb-12">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-2 sm:mb-3 header-glow floating">
+                🚀 Ray Apps
+            </h1>
+            <p class="text-blue-50 text-base sm:text-lg md:text-xl opacity-90">
+                Akses cepat ke aplikasi favorit Anda
+            </p>
+        </div>
+
+        <!-- Apps Grid -->
+        <div class="grid-container max-w-6xl mx-auto">
+            <!-- YouTube -->
+            <a href="https://youtube.com" target="_blank" class="app-card rounded-2xl p-4 sm:p-6 text-center">
+                <div class="emoji-icon mb-2 sm:mb-3">▶️</div>
+                <h3 class="text-white font-semibold text-sm sm:text-base md:text-lg">YouTube</h3>
+                <p class="text-blue-50 text-xs sm:text-sm mt-1 opacity-80">Video & Music</p>
+            </a>
+
+            <!-- Mobile Legends -->
+            <a href="https://m.mobilelegends.com" target="_blank" class="app-card rounded-2xl p-4 sm:p-6 text-center">
+                <div class="emoji-icon mb-2 sm:mb-3">🎮</div>
+                <h3 class="text-white font-semibold text-sm sm:text-base md:text-lg">Mobile Legends</h3>
+                <p class="text-blue-50 text-xs sm:text-sm mt-1 opacity-80">Play Game</p>
+            </a>
+
+            <!-- Google Drive -->
+            <a href="https://drive.google.com" target="_blank" class="app-card rounded-2xl p-4 sm:p-6 text-center">
+                <div class="emoji-icon mb-2 sm:mb-3">📁</div>
+                <h3 class="text-white font-semibold text-sm sm:text-base md:text-lg">Google Drive</h3>
+                <p class="text-blue-50 text-xs sm:text-sm mt-1 opacity-80">Cloud Storage</p>
+            </a>
+
+            <!-- WhatsApp -->
+            <a href="https://wa.me/6281325297375?text=Halo%20Bang" target="_blank" class="app-card rounded-2xl p-4 sm:p-6 text-center">
+                <div class="emoji-icon mb-2 sm:mb-3">💬</div>
+                <h3 class="text-white font-semibold text-sm sm:text-base md:text-lg">WhatsApp</h3>
+                <p class="text-blue-50 text-xs sm:text-sm mt-1 opacity-80">Chat & Calls</p>
+            </a>
+
+            <!-- Spotify -->
+            <a href="https://open.spotify.com" target="_blank" class="app-card rounded-2xl p-4 sm:p-6 text-center">
+                <div class="emoji-icon mb-2 sm:mb-3">🎵</div>
+                <h3 class="text-white font-semibold text-sm sm:text-base md:text-lg">Spotify</h3>
+                <p class="text-blue-50 text-xs sm:text-sm mt-1 opacity-80">Music Streaming</p>
+            </a>
+
+            <!-- Canva -->
+            <a href="https://www.canva.com" target="_blank" class="app-card rounded-2xl p-4 sm:p-6 text-center">
+                <div class="emoji-icon mb-2 sm:mb-3">🎨</div>
+                <h3 class="text-white font-semibold text-sm sm:text-base md:text-lg">Canva</h3>
+                <p class="text-blue-50 text-xs sm:text-sm mt-1 opacity-80">Design Tool</p>
+            </a>
+
+            <a href="https://rayhanrafifweb.github.io/rayhan-ganci/" target="_blank" class="app-card rounded-2xl p-4 sm:p-6 text-center">
+                <div class="emoji-icon mb-2 sm:mb-3">🔑</div>
+                <h3 class="text-white font-semibold text-sm sm:text-base md:text-lg">Keychain</h3>
+                <p class="text-blue-50 text-xs sm:text-sm mt-1 opacity-80">My Store</p>
+            </a>
+
+            <!-- Instagram -->
+            <a href="https://www.instagram.com/al_moonlight_08?igsh=cWc0cjI2aXZya2l3" target="_blank" class="app-card rounded-2xl p-4 sm:p-6 text-center">
+                <div class="emoji-icon mb-2 sm:mb-3">📷</div>
+                <h3 class="text-white font-semibold text-sm sm:text-base md:text-lg">Instagram</h3>
+                <p class="text-blue-50 text-xs sm:text-sm mt-1 opacity-80">Photos & Stories</p>
+            </a>
+
+            <a href="https://www.facebook.com/share/17bMJ8SEyj/" target="_blank" class="app-card bg-white bg-opacity-20 rounded-2xl p-6 text-center border border-white border-opacity-30">
+                <div class="emoji-icon mb-2 sm:mb-3">👥</div>
+                <h3 class="text-white font-semibold text-lg">Facebook</h3>
+                <p class="text-blue-100 text-sm mt-1">Social Network</p>
+            </a>
+
+            <!-- Gmail -->
+            <a href="https://mail.google.com" target="_blank" class="app-card bg-white bg-opacity-20 rounded-2xl p-6 text-center border border-white border-opacity-30">
+                <div class="emoji-icon mb-2 sm:mb-3">📧</div>
+                <h3 class="text-white font-semibold text-lg">Gmail</h3>
+                <p class="text-blue-100 text-sm mt-1">Email</p>
+            </a>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-8 sm:mt-12">
+            <p class="text-blue-50 text-xs sm:text-sm opacity-80">✨ Dibuat Moonlight ( Ray )</p>
+        </div>
+    </div>
+
+    <script>
+        // Animasi saat load dengan efek fade in
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.app-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                setTimeout(() => {
+                    card.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 80);
+            });
+
+            // Update waktu di title
+            const updateTime = () => {
+                const now = new Date();
+                const hours = String(now.getHours()).padStart(2, '0');
+                const minutes = String(now.getMinutes()).padStart(2, '0');
+                document.title = `${hours}:${minutes} - My Apps`;
+            };
+            updateTime();
+            setInterval(updateTime, 60000);
+
+            // Parallax effect pada mouse move
+            document.addEventListener('mousemove', (e) => {
+                const shapes = document.querySelectorAll('.shape');
+                const x = e.clientX / window.innerWidth;
+                const y = e.clientY / window.innerHeight;
+                
+                shapes.forEach((shape, index) => {
+                    const speed = (index + 1) * 20;
+                    const xMove = (x - 0.5) * speed;
+                    const yMove = (y - 0.5) * speed;
+                    shape.style.transform = `translate(${xMove}px, ${yMove}px)`;
+                });
+            });
+        });
+    </script>
+</body>
+</html>
